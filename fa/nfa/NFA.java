@@ -22,6 +22,7 @@ public class NFA implements FAInterface, NFAInterface {
     public void addStartState(String name) {
 
 
+
     }
 
     /**
