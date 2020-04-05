@@ -10,10 +10,17 @@ import fa.dfa.DFA;
 
 public class NFA implements FAInterface, NFAInterface {
 
-    private NFAState startState;        //start state
-    private Set<Character> alphabet = new LinkedHashSet<Character>();    //alphabets (abc)
-    private Set<NFAState> setStates = new LinkedHashSet<NFAState>();;    //state sets
+    public NFA(){
 
+        private NFAState startState;        //start state
+        private Set<Character> alphabet = new LinkedHashSet<Character>();    //alphabets (abc)
+        private Set<NFAState> setStates = new LinkedHashSet<NFAState>();    //all state sets
+        private Set<NFAState> finalStates = new LinkedHashSet<NFAState>();  //final states
+        private Set<NFAState> visitedStates = new LinkedHashSet<NFAState>();  //states visited
+        private Set<NFAState> eClosureStates = new LinkedHashSet<NFAState>(); //
+        private Set<NFAState> nonStates = new LinkedHashSet<NFAState>(); //
+        private Set<NFAState> startSet = new LinkedHashSet<NFAState>();  //
+    }
 
     /**
      * Adds the initial state to the DFA instance
@@ -29,13 +36,26 @@ public class NFA implements FAInterface, NFAInterface {
      * Adds a non-final, not initial state to the DFA instance
      * @param name is the label of the state
      */
-    public abstract void addState(String name);
+    public abstract void addState(String name){
+
+        NFAState currentState = new NFAState(name);
+        setStates.add(currentState);
+        nonStates.add(currentState);
+
+    }
 
     /**
      * Adds a final state to the DFA
      * @param name is the label of the state
      */
-    public abstract void addFinalState(String name);
+    public abstract void addFinalState(String name){
+
+        NFAState finalNFAState = new NFAState(name);  //may need a booleam
+        finalStates.add(finalNFAState);
+        setStates.add(finalNFAState);
+
+
+    }
 
 
     /**
@@ -44,38 +64,52 @@ public class NFA implements FAInterface, NFAInterface {
      * @param onSymb is the symbol from the DFA's alphabet.
      * @param toState is the label of the state where the transition ends
      */
-    public abstract void addTransition(String fromState, char onSymb,
-                                       String toState);
+    public abstract void addTransition(String fromState, char onSymb, String toState){
+
+    }
 
     /**
      * Getter for Q
      * @return a set of states that FA has
      */
-    public abstract Set<? extends State> getStates();
+    public abstract Set<? extends State> getStates(){
+
+    }
 
     /**
      * Getter for F
      * @return a set of final states that FA has
      */
-    public abstract Set<? extends State> getFinalStates();
+    public abstract Set<? extends State> getFinalStates(){
+
+        return finalStates;
+    }
 
     /**
      * Getter for q0
      * @return the start state of FA
      */
-    public abstract State getStartState();
+    public abstract State getStartState(){
+
+        return startState;
+    }
 
     /**
      * Getter for the alphabet Sigma
      * @return the alphabet of FA
      */
-    public abstract Set<Character> getABC();
+    public abstract Set<Character> getABC(){
+
+        return alphabet;
+    }
 
     /**
      *
      * @return equivalent DFA
      */
-    public abstract DFA getDFA();
+    public abstract DFA getDFA(){
+
+    }
 
     /**
      * Return delta entries
@@ -83,7 +117,9 @@ public class NFA implements FAInterface, NFAInterface {
      * @param onSymb - the label of the transition
      * @return a set of sink states
      */
-    public Set<NFAState> getToState(NFAState from, char onSymb);
+    public Set<NFAState> getToState(NFAState from, char onSymb){
+
+    }
 
     /**
      * Traverses all epsilon transitions and determine
@@ -92,5 +128,7 @@ public class NFA implements FAInterface, NFAInterface {
      * @return set of states that can be reached from s on epsilon trans.
      */
 
-    public Set<NFAState> eClosure(NFAState s);
+    public Set<NFAState> eClosure(NFAState s){
+
+    }
 }
