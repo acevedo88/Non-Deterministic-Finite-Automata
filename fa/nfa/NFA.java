@@ -36,7 +36,7 @@ public class NFA implements FAInterface, NFAInterface {
      * Adds a non-final, not initial state to the DFA instance
      * @param name is the label of the state
      */
-    public abstract void addState(String name){
+    public void addState(String name){
 
         NFAState currentState = new NFAState(name);
         setStates.add(currentState);
@@ -48,7 +48,7 @@ public class NFA implements FAInterface, NFAInterface {
      * Adds a final state to the DFA
      * @param name is the label of the state
      */
-    public abstract void addFinalState(String name){
+    public void addFinalState(String name){
 
         NFAState finalNFAState = new NFAState(name);  //may need a booleam
         finalStates.add(finalNFAState);
@@ -64,7 +64,7 @@ public class NFA implements FAInterface, NFAInterface {
      * @param onSymb is the symbol from the DFA's alphabet.
      * @param toState is the label of the state where the transition ends
      */
-    public abstract void addTransition(String fromState, char onSymb, String toState){
+    public void addTransition(String fromState, char onSymb, String toState){
 
     }
 
@@ -72,7 +72,7 @@ public class NFA implements FAInterface, NFAInterface {
      * Getter for Q
      * @return a set of states that FA has
      */
-    public abstract Set<? extends State> getStates(){
+    public Set<? extends State> getStates(){
 
     }
 
@@ -80,7 +80,7 @@ public class NFA implements FAInterface, NFAInterface {
      * Getter for F
      * @return a set of final states that FA has
      */
-    public abstract Set<? extends State> getFinalStates(){
+    public Set<? extends State> getFinalStates(){
 
         return finalStates;
     }
@@ -89,7 +89,7 @@ public class NFA implements FAInterface, NFAInterface {
      * Getter for q0
      * @return the start state of FA
      */
-    public abstract State getStartState(){
+    public State getStartState(){
 
         return startState;
     }
@@ -98,7 +98,7 @@ public class NFA implements FAInterface, NFAInterface {
      * Getter for the alphabet Sigma
      * @return the alphabet of FA
      */
-    public abstract Set<Character> getABC(){
+    public Set<Character> getABC(){
 
         return alphabet;
     }
@@ -107,7 +107,7 @@ public class NFA implements FAInterface, NFAInterface {
      *
      * @return equivalent DFA
      */
-    public abstract DFA getDFA(){
+    public DFA getDFA(){
 
     }
 
