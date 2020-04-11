@@ -10,6 +10,13 @@ import java.util.Set;
 import fa.State;
 import fa.dfa.DFA;
 
+/**
+ * CS361 P2
+ * NFAState Class
+ * @author Alex Acevedo & Derek Valenzuela
+ *
+ */
+
 public class NFA implements NFAInterface {
 	
     private NFAState startState;        //start state
