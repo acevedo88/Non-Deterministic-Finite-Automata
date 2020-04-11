@@ -8,13 +8,13 @@ import java.util.Set;
 import fa.State;
 import fa.dfa.DFA;
 
-public class NFA implements FAInterface, NFAInterface {
+public class NFA implements NFAInterface {
 
     public NFA(){
 
         private NFAState startState;        //start state
         private Set<Character> alphabet = new LinkedHashSet<Character>();    //alphabets (abc)
-        private Set<NFAState> setStates = new LinkedHashSet<NFAState>();    //all state sets
+        private Set<NFAState> allSetStates = new LinkedHashSet<NFAState>();    //all state sets
         private Set<NFAState> finalStates = new LinkedHashSet<NFAState>();  //final states
         private Set<NFAState> visitedStates = new LinkedHashSet<NFAState>();  //states visited
         private Set<NFAState> eClosureStates = new LinkedHashSet<NFAState>(); //
@@ -66,6 +66,7 @@ public class NFA implements FAInterface, NFAInterface {
      */
     public void addTransition(String fromState, char onSymb, String toState){
 
+        //may need a get state method for this
     }
 
     /**
@@ -74,6 +75,7 @@ public class NFA implements FAInterface, NFAInterface {
      */
     public Set<? extends State> getStates(){
 
+        return allSetStates;
     }
 
     /**
@@ -91,7 +93,7 @@ public class NFA implements FAInterface, NFAInterface {
      */
     public State getStartState(){
 
-        return startState;
+        return startSet.iterator().next();
     }
 
     /**
@@ -119,6 +121,8 @@ public class NFA implements FAInterface, NFAInterface {
      */
     public Set<NFAState> getToState(NFAState from, char onSymb){
 
+        return from.getTo(onSymb);
+
     }
 
     /**
@@ -130,5 +134,29 @@ public class NFA implements FAInterface, NFAInterface {
 
     public Set<NFAState> eClosure(NFAState s){
 
+        Set<NFAState> e_closureStates = s.getTo('e');
+        Set<NFAState> returnValue = new LinkedHashSet<NFAState>();
+
+        if(!e_closureStates.isEmpty() && !visitedStates.contains(s)){
+
+            for(NFAState tempStates: e_closureStates){
+                if(!returnValue.contains(tempStates)){
+                    returnValue.add(tempStates);
+                    visitedStates.add(tempStates);
+
+                    if(!returnValue.contains(s)){
+                        returnValue.add(s);
+                        visitedStates.add(s);
+                    }
+                    eClosure(tempStates);
+                }
+
+            }
+        }
+        else{
+            returnValue.add(s);
+        }
+        visitedStates.clear();
+        return returnValue;
     }
 }

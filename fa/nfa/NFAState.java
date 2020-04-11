@@ -17,7 +17,7 @@ public class NFAState extends State{
     private boolean isFinal = false;
 
     public NFAState(String name){
-
+        //lost here
 
     }
 
