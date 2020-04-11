@@ -9,17 +9,27 @@ import fa.State;
 import fa.dfa.DFA;
 
 public class NFA implements NFAInterface {
+	
+    private NFAState startState;        //start state
+    private Set<Character> alphabet = new LinkedHashSet<Character>();    //alphabets (abc)
+    private Set<NFAState> allSetStates = new LinkedHashSet<NFAState>();    //all state sets
+    private Set<NFAState> finalStates = new LinkedHashSet<NFAState>();  //final states
+    private boolean containsFinalState;
+    private Set<NFAState> visitedStates = new LinkedHashSet<NFAState>();  //states visited
+    private Set<NFAState> eClosureStates = new LinkedHashSet<NFAState>(); //
+    private Set<NFAState> nonStates = new LinkedHashSet<NFAState>(); //
+    private Set<NFAState> startSet = new LinkedHashSet<NFAState>();  //
 
     public NFA(){
+    	
+        alphabet = new LinkedHashSet<Character>();    //alphabets (abc)
+        allSetStates = new LinkedHashSet<NFAState>();    //all state sets
+        finalStates = new LinkedHashSet<NFAState>();  //final states
+        visitedStates = new LinkedHashSet<NFAState>();  //states visited
+        eClosureStates = new LinkedHashSet<NFAState>(); //
+        nonStates = new LinkedHashSet<NFAState>(); //
+        startSet = new LinkedHashSet<NFAState>();  //
 
-        private NFAState startState;        //start state
-        private Set<Character> alphabet = new LinkedHashSet<Character>();    //alphabets (abc)
-        private Set<NFAState> allSetStates = new LinkedHashSet<NFAState>();    //all state sets
-        private Set<NFAState> finalStates = new LinkedHashSet<NFAState>();  //final states
-        private Set<NFAState> visitedStates = new LinkedHashSet<NFAState>();  //states visited
-        private Set<NFAState> eClosureStates = new LinkedHashSet<NFAState>(); //
-        private Set<NFAState> nonStates = new LinkedHashSet<NFAState>(); //
-        private Set<NFAState> startSet = new LinkedHashSet<NFAState>();  //
     }
 
     /**
@@ -39,7 +49,7 @@ public class NFA implements NFAInterface {
     public void addState(String name){
 
         NFAState currentState = new NFAState(name);
-        setStates.add(currentState);
+        allSetStates.add(currentState);
         nonStates.add(currentState);
 
     }
@@ -50,9 +60,9 @@ public class NFA implements NFAInterface {
      */
     public void addFinalState(String name){
 
-        NFAState finalNFAState = new NFAState(name);  //may need a booleam
-        finalStates.add(finalNFAState);
-        setStates.add(finalNFAState);
+        NFAState finalNFAState = new NFAState(name);  //may need a boolean **getFinalStates containsFinalStates
+        finalStates.add(finalNFAState); //if this is called in getDFA when a visitedState that is considered final is that it?
+        allSetStates.add(finalNFAState);
 
 
     }
@@ -83,8 +93,15 @@ public class NFA implements NFAInterface {
      * @return a set of final states that FA has
      */
     public Set<? extends State> getFinalStates(){
+    	
+    	LinkedHashSet<NFAState> finalSetStates = new LinkedHashSet<>();
+        for(NFAState st : allSetStates) {
+            if (st.isFinal()) {
+                finalSetStates.add(st);
+            }
+        }
 
-        return finalStates;
+        return finalSetStates;
     }
 
     /**
@@ -104,12 +121,31 @@ public class NFA implements NFAInterface {
 
         return alphabet;
     }
+    
+    /**
+     * Verify if set of states includes any final states 
+     * 
+     * @param states
+     * @return boolean
+     */
+    private boolean containsFinalState(Set<NFAState> allStates){
+        boolean f = false;
+        for(NFAState st: allStates){
+            if(st.isFinal()){
+                f = true;
+                break;
+            }
+        }
+        return f;
+    }
 
     /**
      *
      * @return equivalent DFA
      */
     public DFA getDFA(){
+    	
+    	return null;
 
     }
 

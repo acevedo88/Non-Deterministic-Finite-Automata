@@ -1,5 +1,6 @@
 package fa.nfa;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import fa.State;
@@ -7,7 +8,7 @@ import fa.State;
 /**
  * CS361 P2
  * NFAState Class
- * @author Alex Aceved & Derek Valenzuela
+ * @author Alex Acevedo & Derek Valenzuela
  *
  */
 
@@ -17,7 +18,10 @@ public class NFAState extends State{
     private boolean isFinal = false;
 
     public NFAState(String name){
-        //lost here
+        //lost here **Derek Note** added constructor and add methods for finalStates
+    	this.name = name;
+        delta = new HashMap<Character, LinkedHashSet<NFAState>>();
+        isFinal = false;
 
     }
 
@@ -42,8 +46,13 @@ public class NFAState extends State{
     }
 
     public void initialDefault(String name){
-        delta = new HashMap<Character, LinkedHashed<NFAState>>();
+        delta = new HashMap<Character, LinkedHashSet<NFAState>>();
         this.name = name;
+    }
+    
+  
+    public boolean isFinal(){
+        return isFinal;
     }
 
 
