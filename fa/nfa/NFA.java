@@ -36,8 +36,18 @@ public class NFA implements NFAInterface {
      * Adds the initial state to the DFA instance
      * @param name is the label of the start state
      */
-    public void addStartState(String name) {
-
+    public void addStartState(String name) { //called in NFADriver
+    	/*for eClosure as input
+    	 */
+        NFAState st = getState(name);
+        if(st == null){
+            st = new NFAState(name);
+            allSetStates.add(st);
+            startSet.add(st);
+        }
+        
+        startState = startSet.iterator().next();
+      
 
 
     }
@@ -110,7 +120,8 @@ public class NFA implements NFAInterface {
      */
     public State getStartState(){
 
-        return startSet.iterator().next();
+        //return startSet.iterator().next();
+    	return startState;
     }
 
     /**
@@ -130,13 +141,23 @@ public class NFA implements NFAInterface {
      */
     private boolean containsFinalState(Set<NFAState> allStates){
         boolean f = false;
-        for(NFAState st: allStates){
+        for(NFAState st: allSetStates){
             if(st.isFinal()){
                 f = true;
                 break;
             }
         }
         return f;
+    }
+    
+    private NFAState getState(String name){
+        NFAState getState = null;                   //**Will find state given as input**
+        for(NFAState st : allSetStates){
+            if(st.getName().equals(name)){
+                getState = st;
+            }
+        }
+        return getState;
     }
 
     /**
