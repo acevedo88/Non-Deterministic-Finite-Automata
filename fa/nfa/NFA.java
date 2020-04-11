@@ -1,9 +1,11 @@
 package fa.nfa;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import fa.State;
 import fa.dfa.DFA;
@@ -146,7 +148,7 @@ public class NFA implements NFAInterface {
      */
     private boolean containsFinalState(Set<NFAState> allStates){
         boolean f = false;
-        for(NFAState st: allSetStates){
+        for(NFAState st: allStates){
             if(st.isFinal()){
                 f = true;//break;
             }
@@ -161,7 +163,53 @@ public class NFA implements NFAInterface {
      */
     public DFA getDFA(){
     	
-    	return null;
+    	/* Initialize new DFA */
+        DFA dfa = new DFA();
+        /* Keep track of visited states */
+        Map<Set<NFAState>, String> visitedStates = new LinkedHashMap<>(); // ** Map visitedStates **
+        
+        /* Get the closure of the NFA's start state*/
+        Set<NFAState> states = eClosure(startState); // ** check out eClosure method, only from the start state yeah?**
+        /* Add to visited sates set */
+        visitedStates.put(states, states.toString());//** tracking states, putting to a string? **
+        
+        LinkedList<Set<NFAState>> queue = new LinkedList<>();
+        /* Adds the set of states to the end of the queue */  
+        queue.add(states);
+        /* Sets the start state of the DFS */
+        dfa.addStartState(visitedStates.get(states)); // ** How does this set the start State for DFS? ** uses dfa method
+
+        while(!queue.isEmpty()){
+        	/* Queue based working of a linked list - Retrieves and removes the 
+        	 * head (first element) of this list */
+            states = queue.poll();
+
+            for (char c : alphabet) {
+            	LinkedHashSet<NFAState> temp = new LinkedHashSet<>();
+                for (NFAState st : states) {
+                	/* Adds all of the elements from 'st.getTo(c)' to temp */
+                    temp.addAll(st.getTo(c));
+                }
+                LinkedHashSet<NFAState> temp1 = new LinkedHashSet<>();
+                for(NFAState st : temp){
+                    temp1.addAll(eClosure(st));
+                }
+                if(!visitedStates.containsKey(temp1)){
+                    visitedStates.put(temp1, temp1.toString());
+                    queue.add(temp1);
+
+                    if(containsFinalState(temp1)){
+                        dfa.addFinalState(visitedStates.get(temp1));
+                    }else{
+                        dfa.addState(visitedStates.get(temp1));
+                    }
+                }
+                
+                /* Add transitions to the DFA */
+                dfa.addTransition(visitedStates.get(states), c, visitedStates.get(temp1));
+            }
+        }
+        return dfa;
 
     }
     
@@ -225,4 +273,5 @@ public class NFA implements NFAInterface {
         visitedStates.clear();
         return returnValue;
     }
+    
 }
