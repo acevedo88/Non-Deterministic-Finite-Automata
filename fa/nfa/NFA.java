@@ -87,6 +87,11 @@ public class NFA implements NFAInterface {
     public void addTransition(String fromState, char onSymb, String toState){
 
         //may need a get state method for this
+    	 (getState(fromState)).addTransition(onSymb, getState(toState));
+    	 //find alphabet symbols
+         if(!alphabet.contains(onSymb) && onSymb != 'e'){
+             alphabet.add(onSymb);
+         }
     }
 
     /**
@@ -150,15 +155,6 @@ public class NFA implements NFAInterface {
         return f;
     }
     
-    private NFAState getState(String name){
-        NFAState getState = null;                   //**Will find state given as input**
-        for(NFAState st : allSetStates){
-            if(st.getName().equals(name)){
-                getState = st;
-            }
-        }
-        return getState;
-    }
 
     /**
      *
@@ -168,6 +164,20 @@ public class NFA implements NFAInterface {
     	
     	return null;
 
+    }
+    
+    /**
+     * @param name
+     * @return
+     */
+    private NFAState getState(String name){
+        NFAState getState = null;                   //**Will find state given as input**
+        for(NFAState st : allSetStates){
+            if(st.getName().equals(name)){
+                getState = st;
+            }
+        }
+        return getState;
     }
 
     /**
