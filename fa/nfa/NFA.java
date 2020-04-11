@@ -70,7 +70,7 @@ public class NFA implements NFAInterface {
      */
     public void addFinalState(String name){
 
-        NFAState finalNFAState = new NFAState(name);  //may need a boolean **getFinalStates containsFinalStates
+        NFAState finalNFAState = new NFAState(name, true);  //may need a boolean **getFinalStates containsFinalStates
         finalStates.add(finalNFAState); //if this is called in getDFA when a visitedState that is considered final is that it?
         allSetStates.add(finalNFAState);
 
@@ -148,8 +148,7 @@ public class NFA implements NFAInterface {
         boolean f = false;
         for(NFAState st: allSetStates){
             if(st.isFinal()){
-                f = true;
-                break;
+                f = true;//break;
             }
         }
         return f;
@@ -174,7 +173,7 @@ public class NFA implements NFAInterface {
         NFAState getState = null;                   //**Will find state given as input**
         for(NFAState st : allSetStates){
             if(st.getName().equals(name)){
-                getState = st;
+                getState = st;//break;
             }
         }
         return getState;

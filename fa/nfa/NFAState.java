@@ -24,6 +24,13 @@ public class NFAState extends State{
         isFinal = false;
 
     }
+    
+    public NFAState(String name, boolean isFinal){
+    	this.name = name;
+        delta = new HashMap<Character, LinkedHashSet<NFAState>>();
+        this.isFinal = isFinal;
+
+    }
 
     public void addTransition(char onsymb, NFAState name){
 
@@ -51,7 +58,7 @@ public class NFAState extends State{
     }
     
   
-    public boolean isFinal(){
+    public boolean isFinal(){ //may not need this method
         return isFinal;
     }
 
