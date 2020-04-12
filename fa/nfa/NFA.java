@@ -20,14 +20,14 @@ import fa.dfa.DFA;
 public class NFA implements NFAInterface {
 	
     private NFAState startState;        //start state
-    private Set<Character> alphabet = new LinkedHashSet<Character>();    //alphabets (abc)
-    private Set<NFAState> allSetStates = new LinkedHashSet<NFAState>();    //all state sets
-    private Set<NFAState> finalStates = new LinkedHashSet<NFAState>();  //final states
+    private Set<Character> alphabet;    //alphabets (abc)
+    private Set<NFAState> allSetStates;  //all state sets
+    private Set<NFAState> finalStates;  //final states
     private boolean containsFinalState;
-    private Set<NFAState> visitedStates = new LinkedHashSet<NFAState>();  //states visited
-    private Set<NFAState> eClosureStates = new LinkedHashSet<NFAState>(); //
-    private Set<NFAState> nonStates = new LinkedHashSet<NFAState>(); //
-    private Set<NFAState> startSet = new LinkedHashSet<NFAState>();  //
+    private Set<NFAState> visitedStates;  //states visited
+    private Set<NFAState> eClosureStates; //
+    private Set<NFAState> nonStates;    //
+    private Set<NFAState> startSet;  //
 
     public NFA(){
     	
@@ -228,7 +228,8 @@ public class NFA implements NFAInterface {
         NFAState getState = null;                   //**Will find state given as input**
         for(NFAState st : allSetStates){
             if(st.getName().equals(name)){
-                getState = st;//break;
+                getState = st;
+                break;
             }
         }
         return getState;
