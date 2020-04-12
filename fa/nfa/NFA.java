@@ -25,9 +25,9 @@ public class NFA implements NFAInterface {
     private Set<NFAState> finalStates;  //final states
     private boolean containsFinalState;
     private Set<NFAState> visitedStates;  //states visited
-    private Set<NFAState> eClosureStates; //
-    private Set<NFAState> nonStates;    //
-    private Set<NFAState> startSet;  //
+    private Set<NFAState> eClosureStates;    //
+    private Set<NFAState> nonStates;        //
+    private Set<NFAState> startSet;          //
 
     public NFA(){
     	
