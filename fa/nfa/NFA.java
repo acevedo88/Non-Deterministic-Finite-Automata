@@ -218,7 +218,6 @@ public class NFA implements NFAInterface {
 					}
 				}
 
-				// dfa.addTransition(allStates.get(newStates), c, allStates.get(allTrans));
 				dfa.addTransition(newStates.toString(), c, allStates.get(allTrans));
 			}
 		}
