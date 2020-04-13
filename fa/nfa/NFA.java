@@ -46,10 +46,8 @@ public class NFA implements NFAInterface {
 	 * 
 	 * @param name is the label of the start state
 	 */
-	public void addStartState(String name) { // called in NFADriver
-		/*
-		 * for eClosure as input
-		 */
+	public void addStartState(String name) {
+
 		NFAState st = getState(name);
 		if (st == null) {
 			st = new NFAState(name);
@@ -81,9 +79,9 @@ public class NFA implements NFAInterface {
 	 */
 	public void addFinalState(String name) {
 
-		NFAState finalNFAState = new NFAState(name, true); // may need a boolean **getFinalStates containsFinalStates
-		finalStates.add(finalNFAState); // if this is called in getDFA when a visitedState that is considered final is
-										// that it?
+		NFAState finalNFAState = new NFAState(name, true);
+		finalStates.add(finalNFAState);
+
 		allSetStates.add(finalNFAState);
 
 	}
@@ -97,9 +95,8 @@ public class NFA implements NFAInterface {
 	 */
 	public void addTransition(String fromState, char onSymb, String toState) {
 
-		// may need a get state method for this
 		(getState(fromState)).addTransition(onSymb, getState(toState));
-		// find alphabet symbols
+
 		if (!alphabet.contains(onSymb) && onSymb != 'e') {
 			alphabet.add(onSymb);
 		}
@@ -139,7 +136,6 @@ public class NFA implements NFAInterface {
 	 */
 	public State getStartState() {
 
-		// return startSet.iterator().next();
 		return startState;
 	}
 
@@ -231,7 +227,7 @@ public class NFA implements NFAInterface {
 	 * @return
 	 */
 	private NFAState getState(String name) {
-		NFAState getState = null; // **Will find state given as input**
+		NFAState getState = null;
 		for (NFAState st : allSetStates) {
 			if (st.getName().equals(name)) {
 				getState = st;

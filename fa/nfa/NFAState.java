@@ -18,7 +18,6 @@ public class NFAState extends State{
     private boolean isFinal = false;
 
     public NFAState(String name){
-        //lost here **Derek Note** added constructor and add methods for finalStates
     	this.name = name;
         delta = new HashMap<Character, LinkedHashSet<NFAState>>();
         isFinal = false;
@@ -58,7 +57,7 @@ public class NFAState extends State{
     }
     
   
-    public boolean isFinal(){ //may not need this method
+    public boolean isFinal(){ 
         return isFinal;
     }
 
