@@ -163,7 +163,7 @@ public class NFA implements NFAInterface {
 		boolean f = false;
 		for (NFAState st : allStates) {
 			if (st.isFinal()) {
-				f = true;// break;
+				f = true;
 			}
 		}
 		return f;
@@ -197,28 +197,29 @@ public class NFA implements NFAInterface {
 				LinkedHashSet<NFAState> proxy = new LinkedHashSet<>();
 				for (NFAState st : newStates) {
 
-					proxy.addAll(st.getTo(c));
+					if (st.getTo(c) != null) {
+						for (NFAState states : st.getTo(c)) {
+							proxy.addAll(eClosure(states));
+						}
 
-				}
-				LinkedHashSet<NFAState> allTrans = new LinkedHashSet<>();
-				for (NFAState st : proxy) {
-					allTrans.addAll(eClosure(st));
-				}
-				
-				while (!allStates.containsKey(allTrans)) {
-					allStates.put(allTrans, allTrans.toString());
-					q.add(allTrans);
-
-					if (containsFinalState(allTrans)) {
-						dfa.addFinalState(allStates.get(allTrans));
 					}
 
-					if (containsFinalState(allTrans) == false) {
-						dfa.addState(allStates.get(allTrans));
+				}
+
+				while (!allStates.containsKey(proxy)) {
+					allStates.put(proxy, proxy.toString());
+					q.add(proxy);
+
+					if (containsFinalState(proxy)) {
+						dfa.addFinalState(allStates.get(proxy));
+					}
+
+					if (containsFinalState(proxy) == false) {
+						dfa.addState(allStates.get(proxy));
 					}
 				}
 
-				dfa.addTransition(newStates.toString(), c, allStates.get(allTrans));
+				dfa.addTransition(newStates.toString(), c, allStates.get(proxy));
 			}
 		}
 		return dfa;
