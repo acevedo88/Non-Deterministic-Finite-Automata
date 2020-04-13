@@ -204,19 +204,21 @@ public class NFA implements NFAInterface {
 				for (NFAState st : proxy) {
 					allTrans.addAll(eClosure(st));
 				}
-				// Work Here
-				if (!allStates.containsKey(allTrans)) {
+				
+				while (!allStates.containsKey(allTrans)) {
 					allStates.put(allTrans, allTrans.toString());
 					q.add(allTrans);
 
 					if (containsFinalState(allTrans)) {
 						dfa.addFinalState(allStates.get(allTrans));
-					} else {
+					}
+
+					if (containsFinalState(allTrans) == false) {
 						dfa.addState(allStates.get(allTrans));
 					}
 				}
 
-				//dfa.addTransition(allStates.get(newStates), c, allStates.get(allTrans));
+				// dfa.addTransition(allStates.get(newStates), c, allStates.get(allTrans));
 				dfa.addTransition(newStates.toString(), c, allStates.get(allTrans));
 			}
 		}
