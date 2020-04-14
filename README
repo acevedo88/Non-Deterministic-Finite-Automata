@@ -1,0 +1,55 @@
+# Project 2: Nondeterministic Finite Automata
+
+* Author: Alex Acevedo & Derek Valenzuela
+* Class: CS361 Section 001
+* Semester: Spring 2020
+
+## Overview
+
+This project converts Nondeterministic Finite Automaton into a Deterministic Finite Automaton.
+
+## Compiling and Using
+
+ From the directory containing all source files, compile the Driver
+ class (and all dependent classes) with the command:
+ $ javac fa/nfa/NFADriver.java
+
+ Run the compiled Driver class with the command:
+ $ java fa.nfa.NFADriver ./tests/p2tc0.txt
+
+ Console output will display the converted NFA to DFA. Example:
+Q = { [a] [a, b] }
+Sigma = { 0 1 }
+delta =
+                   0         1
+       [a]       [a]    [a, b]
+    [a, b]       [a]    [a, b]
+    
+q0 = [a]
+F = { [a, b] }
+
+no
+yes
+no
+yes
+no
+
+## Discussion
+
+We were comfortable with the set up based on the previous project and found that the methods were not that dissimilar to the DFA methods with a few exceptions. 
+The NFADriver class was very useful to help strategize how we wanted to structure our approach and what data struxtures would be needed. We had the most difficulty 
+with the finalState, eClosure methods along with the getDFA method. We went back and forth on whether to keep track of two temporary linkedhashsets
+or use 1 and ultimately used 1 and added the eClosure states to it and had better results.
+
+## Testing
+
+We used the test cases provided to determine if our methods and formatting were correct.
+
+## Sources used
+
+https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html
+
+https://www.javatpoint.com/java-hashmap
+
+Hashmap and Hashset tutorial:
+https://www.youtube.com/watch?v=jwtx6GVPdyw
