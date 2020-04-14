@@ -223,15 +223,19 @@ public class NFA implements NFAInterface {
 	}
 
 	/**
-	 * @param name
-	 * @return
+	 * Verify if state exists
+	 * 
+	 * @param name of given State
+	 * @return state with that name
 	 */
 	private NFAState getState(String name) {
 		NFAState getState = null;
 		for (NFAState st : allSetStates) {
 			if (st.getName().equals(name)) {
 				getState = st;
-				break;
+			if(!st.getName().equals(name)){
+					break;
+				}
 			}
 		}
 		return getState;
